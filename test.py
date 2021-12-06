@@ -35,7 +35,7 @@ def category():
 
 def link_actu(url):
     
-    # url = "https://www.football.fr/espagne"
+    # url = "https://www.football.fr/ligue-1"
 
     headers = {
         "User-Agent": "Mozilla/5.0 (Linux; Android 5.1.1; SM-G928X Build/LMY47X) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/47.0.2526.83 Mobile Safari/537.36"
@@ -47,7 +47,9 @@ def link_actu(url):
 
         # main_div = html_soup.find("div", attrs={"class": "archive-posts row"})
         
-        nav_link = html_soup.find_all("a", attrs={"class": "page-numbers"})[7].text.strip()
+        nav_link = html_soup.find_all("a", attrs={"class": "page-numbers"})[7].text.strip().replace('\xa0','')
+        # print("===============================>")
+        # print("===============================>", int(nav_link))
         all_links = []
         for item in range(1,int(nav_link)+1):
             url2 = f"{url}/page/{item}"
@@ -70,7 +72,7 @@ def link_actu(url):
 
 
 def actu(link):
-
+    
     headers = {
         "User-Agent": "Mozilla/5.0 (Linux; Android 5.1.1; SM-G928X Build/LMY47X) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/47.0.2526.83 Mobile Safari/537.36"
     }
