@@ -2,11 +2,15 @@ from django.db import models
 
 # Create your models
 
-
 class Competition(models.Model):
     """Model definition for Competition."""
 
     # TODO: Define fields here
+    name = models.CharField(max_length=200, null=True)
+    
+    status = models.BooleanField(default=True, blank=True, null=True)
+    date_add = models.DateTimeField(auto_now_add=True, blank=True, null=True)
+    date_upd = models.DateTimeField(auto_now=True, blank=True, null=True)
 
     class Meta:
         """Meta definition for Competition."""
@@ -16,37 +20,32 @@ class Competition(models.Model):
 
     def __str__(self):
         """Unicode representation of Competition."""
-        pass
+        return self.name
 
 
 
-class Team(models.Model):
-    """Model definition for Team."""
-
-    # TODO: Define fields here
-
-    class Meta:
-        """Meta definition for Team."""
-
-        verbose_name = 'Team'
-        verbose_name_plural = 'Teams'
-
-    def __str__(self):
-        """Unicode representation of Team."""
-        pass
-
-
-class TeamTransfert(models.Model):
-    """Model definition for TeamTransfert."""
+class New(models.Model):
+    """Model definition for New."""
 
     # TODO: Define fields here
+    competition = models.ForeignKey(Competition, on_delete=models.CASCADE, related_name="newsCompetition")
+    title = models.CharField(max_length=200, null=True)
+    date_pub = models.CharField(max_length=200, null=True)
+    author = models.CharField(max_length=200, null=True)
+    short_description = models.TextField(null=True)
+    description = models.TextField(null=True)
+    image = models.ImageField(upload_to="image_news",null=True)
+    
+    status = models.BooleanField(default=True, blank=True, null=True)
+    date_add = models.DateTimeField(auto_now_add=True, blank=True, null=True)
+    date_upd = models.DateTimeField(auto_now=True, blank=True, null=True)
 
     class Meta:
-        """Meta definition for TeamTransfert."""
+        """Meta definition for New."""
 
-        verbose_name = 'TeamTransfert'
-        verbose_name_plural = 'TeamTransferts'
+        verbose_name = 'New'
+        verbose_name_plural = 'News'
 
     def __str__(self):
-        """Unicode representation of TeamTransfert."""
-        pass
+        """Unicode representation of New."""
+        return self.title
